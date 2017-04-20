@@ -1,4 +1,8 @@
-
+# Configuration file for jupyterhub.
+#update to file to use lets encrypt
+#update to file to use oathentication with github
+#update to file to not allow every github user to login and only allow whitelist and admin users
+#update to file to use docker 
 
 c.JupyterHub.ssl_key = '/etc/letsencrypt/live/weather.asrc.albany.edu/privkey.pem'
 c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/weather.asrc.albany.edu/fullchain.pem'
