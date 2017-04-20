@@ -1,4 +1,4 @@
-# Configuration file for jupyterhub.
+
 
 c.JupyterHub.ssl_key = '/etc/letsencrypt/live/weather.asrc.albany.edu/privkey.pem'
 c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/weather.asrc.albany.edu/fullchain.pem'
@@ -21,6 +21,27 @@ c.GitHubOAuthenticator.oauth_callback_url = os.environ['https://weather.asrc.alb
 c.GitHubOAuthenticator.client_id = os.environ['2582dcc85b9c2c8a14f3']
 c.GitHubOAuthenticator.client_secret = os.environ['bd795ef455928865a748a17babe385025c1ecaea']
 '''
+
+#for using docker 
+from oauthenticator.github import GitHubOAuthenticator
+c.JupyterHub.authenticator_class = GitHubOAuthenticator
+from dockerspawner import DockerSpawner
+c.JupyterHub.spawner_class = DockerSpawner
+
+
+from dockerspawner import DockerSpawner
+c.JupyterHub.spawner_class = DockerSpawner
+# The Hub's API listens on localhost by default,
+# but docker containers can't see that.
+# Tell the Hub to listen on its docker network:
+import netifaces
+docker0 = netifaces.ifaddresses('docker0')
+docker0_ipv4 = docker0[netifaces.AF_INET][0]
+c.JupyterHub.hub_ip = docker0_ipv4['addr']
+
+
+DockerSpawner.container_image = 'jupyterhub/singleuser'
+
 
 
 #------------------------------------------------------------------------------
