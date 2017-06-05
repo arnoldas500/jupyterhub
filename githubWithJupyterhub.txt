@@ -1,0 +1,85 @@
+What is github?
+“At the heart of GitHub is Git, an open source project started by Linux creator Linus Torvalds. With distributed version control systems like Git, if you want to make a change to a [remote] project you copy the whole repository to your own system. You make your changes on your local copy, then you “check in” the changes to the central server.”
+http://techcrunch.com/2012/07/14/what-exactly-is-github-anyway/
+ 
+Creating a Github account if you don't already have one:
+Browse to https://github.com/join
+Sign up for a GitHub account. Choose the free plan (unless you’re sure you want to be able to create private GitHub repositories).
+ 
+Using github
+First create a github account if you don't already have one. Then create a new repository on GitHub. To avoid errors, do not initialize the new repository with README, license, or gitignore files. You can add these files after your project has been pushed to GitHub.
+ 
+There are two ways to enter a Git repository -- the place where you store your Git files and the files you are working on. The two ways are either by:
+Add existing files and folders to a Git repository.
+Clone an existing repository from another server.
+If you go with the first option, then you first create a folder for your project using mkdir projectName. Then it needs the Git processes and code so you will:
+Enter the project folder and type “git init”
+
+If you go to your jupyterhub home folder you will now see a new directory that you created for your new project.
+
+You can check the status of your Git repository by typing “git status” at the command prompt. This will tell you which files are in which state. 
+If you run this command directly after a clone or creating a git repo the screen will look something like the following:
+
+The above screenshot shows that there are no files that have been modified. This means you have a clean working directory and there is nothing to commit to github. It also tells you which branch you are on, currently on the master branch.
+ 
+Now let's say that we wanted to create a README file for the new project. We can do this either right in the terminal using a text editor like vim or emacs. Or we can do it by double clicking the github folder and creating it manually once inside the folder by going to the new drop down menu and selecting text file.
+Now you can check the file again by doing:
+Type “ls”. Then “git status”. You should see something similar to the screenshot below:
+
+You can see that your new README file is untracked, because it’s under the “Untracked files” heading in your status output. Untracked basically means that Git sees a file you didn’t have in the previous snapshot (commit); Git won’t start including it in your commit snapshots until you explicitly tell it to do so. It does this so you don’t accidentally begin including generated binary files or other files that you did not mean to include. You do want to start including README, so let’s start tracking the file.
+ 
+In order to begin tracking a new file, you use the command git add. To begin tracking the README file, you can run this:
+git add README.txt
+If you run your status command again, you can see that your README file is now tracked and staged to be committed (you can also see the color of it changed from red to green):
+
+ 
+By tracking the README file, you’ve set it up or “staged” it to be saved to the repository. That means any changes you made to the file will be included in the next Git snapshot.
+You can go in and make other changes to the README file again, but if you do so, you need to use “git add README” to make sure you stage those new changes.
+Let’s assume we’re done making changes to the README file (whether you made any or not). Now it’s time to create a Git snapshot of the file. 
+Type “git commit -m “whatever message you would like to specify with this commit””.
+The point of massing the -m flag and writing a message is so collaborators know what you did.
+ 
+When you first do this you will get an error message saying something like this: 
+*** Please tell me who you are.
+Run
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+ 
+This is simply because Git needs to know who you are so it can sign all your contributions. That way everyone knows who you are and what you did.
+ 
+To fix that simply run the two above commands with your github email and user name and then run the git commit command again. You should now see a similar output to the screenshot below:
+
+ 
+Next, In Terminal, add the URL for the remote repository where your local repository will be pushed like so:
+git remote add origin remote repository URL
+# Sets the new remote
+Then push the changes in your local repository to GitHub.
+git push -u origin master
+# Pushes the changes in your local repository up to the remote repository you specified as the origin
+ 
+Screenshot of how it should look after adding the remote origin and pushing it to github:
+
+ 
+Now, when you type “git remote”, the prompt shows the name of a remote (whichever name you gave it). Typing “git remote -v” instead shows the remote name and the URL. The “fetch” remote is for bringing projects to your local machine; the “push” remote is for transferring projects from your local machine.
+
+ 
+We only made one commit so far, but that’s not typical.
+Usually, you make a number of changes and commits. Alternatively, several people work on the same files over time and you want to see what they’ve changed. To keep track of what you’ve done, you can check the commit log.
+Type “git log”.
+
+Now you will see all of the changes with all of the commit messages which makes it really easy to keep track of the work you have done and to revert on any stages you might like to.
+ 
+If you head over to your github using a web browser you can see all the changes you have made and the project you created:
+
+This also shows you all the contributors to the project, all of the files and lets you see the changes to the files if you click on them. 
+ 
+ 
+ 
+ 
+ 
+To clone an existing repository from github:
+Simply create a new folder where you would like to clone it to using mkdir folderName
+Enter that folder using cd folderName 
+Then run git clone github url name 
+Here is an example:
+
