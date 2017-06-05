@@ -1,0 +1,36 @@
+How to use JH:
+Jupyterhub will be accessed through a web browser using either an IP address or domain name of the server.
+Any user on the system with a password will be allowed to start a single user notebook server
+Can reach jupyterhub through:
+https://appsvr.asrc.cestm.albany.edu/
+Click sign in with github and sign in or create a github account if needed
+Once logged in click start my server to be brought to the main homepage which contains all of your files (similar to a home folder on a C drive)
+To upload files:
+In the top right corner there is an upload tab
+Once clicked you will be able to select any files you wish to upload from your local machine
+To upload files from github or to clone a repository please refer to my github documentation
+Once uploaded the files will be in the home folder
+To open a new kernel:
+In the top right corner of the page there is a new drop down tab.
+This allows you to select the kernel of your choice EX: python 2, 3, R, ruby
+If kernel of your choice is not available select the terminal and follow instructions for how to download an additional kernel.
+The terminal can also be used for navigating through the file system, copying and moving files, deleting files and much more. If you would like to get more familiar with using the terminal please refer to my terminal commands documentation.
+The new drop down tab can also be used to create new text files and folders for the home directory.
+ 
+How to use conda inside jupyterhub:
+Go to the drop down menu on the top right corner of the homepage where it says new after logging in. 
+Press on the terminal tab.
+Once in terminal then type 
+conda info --envs
+This will list all of the available environments:
+# conda environments:
+#
+python2               /opt/conda/envs/python2
+root                  *  /opt/conda
+(the one with the star is the current default one)
+To switch environments type:
+source activate environment name.
+
+Now if you do conda info --envs again you will see that the default has changed.
+What ever packages you now download will be downloaded to the new environment.
+To go back to the default environment simply write source deactivate or source activate newEnvName.
