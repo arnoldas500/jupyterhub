@@ -1,0 +1,29 @@
+Uses for jupyter notebooks:
+IPython overview
+IPython provides a rich architecture for interactive computing with:
+A powerful interactive shell.
+A kernel for Jupyter.
+Support for interactive data visualization and use of GUI toolkits.
+Flexible, embeddable interpreters to load into your own projects.
+Easy to use, high performance tools for parallel computing.
+It's self-documenting and transparently future-friendly 
+ 
+Using the Notebook for data exploration
+Anything involving data (data scraping, exploratory data analysis, plotting, testing various machine learning techniques, etc)
+For interactive code and visualization development. - Particularly when parts of a script are slow running, being able to do it once and then iterate on a dependent part in a notebook cell saves a lot of time.
+ 
+Using extensions and widgets
+Can re run code very simply without having to go back in your text editor, make the changes, then go back to the terminal, and have to use the arrow keys to go back into history to compile and run the code. Great for playing around with new libraries/ extensions or doing quick tests as well.
+Much better than both Python scripts (need to be rerun from scratch) and Python shell.
+ 
+Using multiple language kernels
+Verification compared to other languages and programs. If you compare traditional data analysis in Excel, python 2/3, ect., it is much easier to verify what is going on in a notebook than it is in multitudes of Excel sheets. Easy calculation views, graphs, tables, etc. Can change from a python 3 to a python 2 kernel with a click of a button. Can also change from one programing language to another with a click of a button.
+ 
+Using nbconvert for code execution and workflow simplification
+Using nbconvert for publishing
+ 
+ 
+ 
+ 
+ 
+ 
