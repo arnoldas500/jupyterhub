@@ -1,8 +1,56 @@
+How to run the JupyterHub container on the host.
+Once logged in as xcite user follow these steps to start jupyterhub.
+Navigate to the jupyterhub server folder:
+cd /srv/jupyterhub/jupyterhub-deploy-docker/
+Once inside the correct folder, activate the jupyterhub environment that has pre-set configuration:
+source activate jupyterhubEnv
+List of configuration files in case anything needs to be changed:
+Jupyterhub_config.py, Dockerfile.jupyterhub, docker compose and .env (hidden file)
+To add a user to the whitelist or admin list to be able to be cross referenced and allowed to login with github account their github username has to be added to the userlist file in the form of name and then admin next to name if they are an admin. Only one entry per line then press return. Example userlist file:	
+ 
+ 
+xcite admin
+ 
+arnoldas500 admin
+ 
+wmay
+ 
+Once you are done changing any configuration then you are ready to start the hub
+To run the JupyterHub container in detached mode:
+docker-compose up -d
+After starting the hub any user that logs in sucessfully will be either created a docker container if they dont already have an existing one or their containter will be started if it already exist with all of the work they have previously done.
+To check all of the containers that exist and who they are owned by run:
+docker ps -a
+This command will show all of the containers that are running as well as containers that are not running but exist.
+To check the status of jupyterhub to see what port and under what domain it is running on, any activity that might be happening and any errors that might be occuring use docker logs <container>. For example, to view the logs of the jupyterhub container:
+docker logs jupyterhub
+Once the container is running, you should be able to access the JupyterHub console at
+https://appsvr.asrc.cestm.albany.edu/ 
+To bring down the JupyterHub container:
+docker-compose down
+ 
+Useful docker commands:
+docker kill	Kill one or more running containers
+docker ps	List containers
+docker rename	Rename a container
+docker rm	Remove one or more containers
+docker rmi	Remove one or more images
+docker run	Run a command in a new container
+ 
+About Docker:
+Files get converted into a docker image that contain all your project code
+That image can then be run as a container
+Each container is sort of like its own virtual machine
+You can run as many containers as you want with each having there own settings like one having R and another having python or both
+Limit to how many containers can be run is till the cpu and or ram gets bottlenecked 
+Each container acts like a virtual machine but actually acts more like a self contained process.
+All of the containers sit on the host ubuntu server resources.
+ 
 (Optional -do this only if you get a permissions denied error) delete jupyterhub_cookie_secret file after shutting down or before starting jupyterhub:
 cd /srv/jupyterhub
 rm jupyterhub_cookie_secret
  
-To run jupyterhub:
+(now outdated)To run jupyterhub:
 After logging into a user account,
 cd /srv/jupyterhub
 source activate jupyterhubEnv
@@ -14,49 +62,17 @@ Url: https://appsvr.asrc.cestm.albany.edu/
 R installation:
 conda install -c r r-essentials
  
-Docker:
-Files get converted into a docker image that contain all your project code
-That image can then be run as a container
-Each container is sort of like its own virtual machine
-You can run as many containers as you want with each having there own settings like one having R and another having python or both
-Limit to how many containers can be run is till the cpu and or ram gets bottlenecked 
-Each container acts like a virtual machine but actually acts more like a self contained process.
-All of the containers sit on the host ubuntu server resources.
- 
 To edit configuration file:
 sudo emacs /etc/jupyterhub/jupyterhub_config.py
  
 List of jupyterhub kernels available:
 https://github.com/jupyter/jupyter/wiki/Jupyter-kernels 
  
-How to use conda inside jupyterhub:
-Go to the drop down menu on the top right corner of the homepage where it says new after logging in. 
-Press on the terminal tab.
-Once in terminal then type 
-conda info --envs
-This will list all of the available environments:
-# conda environments:
-#
-python2               /opt/conda/envs/python2
-root                  *  /opt/conda
-(the one with the star is the current default one)
-To switch environments type:
-source activate environment name.
-
-Now if you do conda info --envs again you will see that the default has changed.
-What ever packages you now download will be downloaded to the new environment.
-To go back to the default environment simply write source deactivate or source activate newEnvName.
- 
-Is it okay to run jh as root and how to run jh in background?
-https://github.com/jupyterhub/jupyterhub/wiki/Using-sudo-to-run-JupyterHub-without-root-privileges
-https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service
- 
-Google oauth vs system lvl auth / or should i just set up custom auth
-Write 2-3 page tutorial on git, jh, env, file upload process 
- 
+conda install gcc
+conda install -c anaconda xarray=0.9.5
 Pip install git repoName
- 
- 
+pip install git https://github.com/ASRCsoft/raspPy.git
+Or conda install git https://github.com/ASRCsoft/raspPy.git
  
 JupyterHub overview:
 With JupyterHub you can create a multi-user Hub which spawns, manages, and proxies multiple instances of the single-user Jupyter notebook (IPython notebook) server.
@@ -105,6 +121,24 @@ Persists JupyterHub data in a Docker volume on the host
 Persists user notebook directories in Docker volumes on the host
 
 JupyterHub is an authenticated service - uses users login. For security you can use letsencrypt to set up SSL to use https (you shouldn't run jupyterhub without ssl because it's going to be dealing with people's passwords). 
+ 
+How to run the JupyterHub container on the host.
+To run the JupyterHub container in detached mode:
+docker-compose up -d
+Once the container is running, you should be able to access the JupyterHub console at
+https://appsvr.asrc.cestm.albany.edu/ 
+To bring down the JupyterHub container:
+docker-compose down
+Use docker logs <container>. For example, to view the logs of the jupyterhub container:
+docker logs jupyterhub
+ 
+Useful docker commands:
+docker kill	Kill one or more running containers
+docker ps	List containers
+docker rename	Rename a container
+docker rm	Remove one or more containers
+docker rmi	Remove one or more images
+docker run	Run a command in a new container
  
 Requirements:
 Python 3.3 or greater (and pip) 
@@ -195,6 +229,3 @@ import netifaces
 docker0 = netifaces.ifaddresses('docker0')
 docker0_ipv4 = docker0[netifaces.AF_INET][0]
 c.JupyterHub.hub_ip = docker0_ipv4['addr']
- 
- 
- 
